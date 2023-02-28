@@ -1,30 +1,34 @@
 #!/usr/bin/env sh
 
-# 發生錯誤時執行終止指令
+# abort on errors
 set -e
 
-# 打包編譯
+# build
 npm run build
 
-# 移動到打包資料夾下，若你有調整的話打包後的資料夾請務必調整
+# navigate into the build output directory
 cd dist
 
-# 部署到自定義網域
+# place .nojekyll to bypass Jekyll processing
+echo > .nojekyll
+
+# if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
 
 git init
-git check B main
+git checkout -B main
 git add -A
 git commit -m 'deploy'
 
-# 部署到 https://<USERNAME>.github.io
-# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
+# if you are deploying to https://Wendy03.github.io
+# git push -f git@github.com:Wendy03/Wendy03.github.io.git main
 
-# 部署到 https://<USERNAME>.github.io/<REPO>
-# git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
-# 以這個專案來講就要改成這樣以下這樣，下面是走 ssh 模式
-# git push -f https://github.com/kurokawalei/vue-finall-lesson.git master:gh-pages
-# 除此之外，也可以改走 HTTPS 模式
-git push -f https://github.com/kurokawalei/vue2023.git master:gh-pages
+# if you are deploying to https://Wendy03.github.io/week6_vite
+git push -f https://github.com/kurokawalei/2023-vue-vite.git main:gh-pages
 
 cd -
+
+
+
+
+

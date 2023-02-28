@@ -2,7 +2,10 @@
   <div class="text-center">
     <h2>購物車</h2>
   </div>
-  <div class="text-end">
+
+  <div v-if="cartList.carts?.length===0" class="mt-3 mb-3">目前購物車尚無有商品，快進行選購吧</div>
+
+  <div class="text-end" v-else> 
     <button class="btn btn-outline-danger" type="button" @click="delCartAll">清空購物車</button>
   </div>
 

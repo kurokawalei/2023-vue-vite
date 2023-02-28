@@ -28,7 +28,7 @@
           <div class="btn-group btn-group-sm">
             <RouterLink class="btn btn-outline-secondary me-2" :to="`/product/${item.id}`">查看更多</RouterLink>
 
-            <button type="button" class="btn btn-outline-secondary me-2" @click="addTocart(item.id, 1)">
+            <button type="button" :disabled="isloading" class="btn btn-outline-secondary me-2" @click="addTocart(item.id, 1)">
               <i class="fas fa-spinner fa-pulse"></i>
               加到購物車
             </button>
@@ -52,6 +52,7 @@ export default {
     return {
       products: [],
       pagination: {},
+      isloading:false
     };
   },
   methods: {
@@ -74,15 +75,21 @@ export default {
     },
 
     addTocart(product_id, qty) {
+
+    
+
       const data = {
         product_id,
         qty,
       };
 
+      this.isloading = true;
+
       this.$http
         .post(`${VITE_APP_URL}/v2/api/${VITE_APP_PATH}/cart`, { data })
         .then((res) => {
           alert(`${res.data.message}`);
+          this.isloading = false;
         })
         .catch((err) => {
           console.log(err);
